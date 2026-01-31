@@ -21,13 +21,16 @@ function init() {
     for (const [subject, lessons] of Object.entries(subjects)) {
         html += `
             <div class="subject-card">
-                <h2>${subject}</h2>
+                <div class="subject-header">
+                    <h2>${subject}</h2>
+                    <span id="percent-${subject}" class="subject-percent">0% Done</span>
+                </div>
                 <div class="lesson-list">
                     ${lessons.map((lesson, i) => {
                         const id = `${subject}-${i}`.replace(/\s+/g, '');
                         return `
                             <div class="lesson-item">
-                                <input type="checkbox" id="${id}" onchange="toggleLesson('${id}')">
+                                <input type="checkbox" id="${id}" class="cb-${subject}" onchange="toggleLesson('${id}')">
                                 <label for="${id}">${lesson}</label>
                             </div>
                         `;
@@ -38,6 +41,27 @@ function init() {
     }
     grid.innerHTML = html;
     loadProgress();
+}
+
+function updateProgressUI() {
+    // 1. Calculate Subject-wise percentages
+    for (const subject in subjects) {
+        const subjectCBs = document.querySelectorAll(`.cb-${subject}`);
+        const checked = Array.from(subjectCBs).filter(c => c.checked).length;
+        const percent = Math.round((checked / subjectCBs.length) * 100);
+        
+        const badge = document.getElementById(`percent-${subject}`);
+        if(badge) badge.innerText = `${percent}% Done`;
+    }
+
+    // 2. Calculate Total overall percentage
+    const all = document.querySelectorAll('input[type="checkbox"]');
+    const totalChecked = Array.from(all).filter(c => c.checked).length;
+    const totalPercent = Math.round((totalChecked / all.length) * 100);
+    
+    document.getElementById('progress-bar').style.width = totalPercent + '%';
+    document.getElementById('stats').innerText = `${totalChecked} / ${all.length} Chapters`;
+    document.getElementById('overall-percent').innerText = `${totalPercent}% Total`;
 }
 
 function toggleLesson(id) {
@@ -75,14 +99,6 @@ function loadProgress() {
     updateProgressUI();
 }
 
-function updateProgressUI() {
-    const all = document.querySelectorAll('input[type="checkbox"]');
-    const checked = Array.from(all).filter(c => c.checked).length;
-    const percent = (checked / all.length) * 100;
-    
-    document.getElementById('progress-bar').style.width = percent + '%';
-    document.getElementById('stats').innerText = `${checked} / ${all.length} Chapters Done`;
-}
 
 function clearAll() {
     if(confirm("Reset all progress?")) {
