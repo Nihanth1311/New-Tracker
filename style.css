@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+    --primary-pink: #ff85a2;
+    --accent-red: #ff4d6d;
+    --glass: rgba(255, 255, 255, 0.8);
+    --text-main: #2d3436;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background: url('./HD\ flower\ aesthetic\ wallpaper\ __3!!.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(15px);
+    z-index: 1000;
+    padding: 20px;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    margin: 0;
+    color: var(--accent-red);
+    font-size: 2rem;
+}
+
+.progress-wrapper {
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+.progress-container {
+    background: #eee;
+    height: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+#progress-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-pink), var(--accent-red));
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.main-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    padding: 40px 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.subject-card {
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    border-radius: 25px;
+    padding: 30px 20px;
+    border: 1px solid rgba(255,255,255,0.3);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+.subject-card:hover { transform: translateY(-5px); }
+
+h2 {
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    margin-top: -50px;
+    background: var(--primary-pink);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 15px;
+    display: inline-block;
+    width: 60%;
+    margin-left: 20%;
+    box-shadow: 0 5px 15px rgba(255, 133, 162, 0.4);
+}
+
+.lesson-list {
+    margin-top: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.lesson-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+.lesson-item:hover { background: rgba(255, 133, 162, 0.1); }
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+    accent-color: var(--accent-red);
+    cursor: pointer;
+}
+
+/* Love Note Popup */
+#love-note-box {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    transition: opacity 0.3s;
+}
+
+.note-content {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 90%;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+
+.hidden { opacity: 0; pointer-events: none; }
+
+.reset-btn {
+    background: none;
+    border: 1px solid #ccc;
+    padding: 5px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
