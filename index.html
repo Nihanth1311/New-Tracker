@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bujjamma's Study Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <h1>Bujjamma's Journey</h1>
+            <div class="progress-wrapper">
+                <div class="progress-container">
+                    <div id="progress-bar"></div>
+                </div>
+                <span id="stats">0 / 0 Completed</span>
+            </div>
+            <button class="reset-btn" onclick="clearAll()">Reset Progress</button>
+        </div>
+    </header>
+
+    <main class="main-container" id="subjects-grid">
+        </main>
+
+    <div id="love-note-box" class="hidden">
+        <div class="note-content">
+            <span class="heart-icon">❤️</span>
+            <p id="note-text"></p>
+            <button class="close-note" onclick="hideNote()">Close</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
