@@ -8,18 +8,21 @@
 </head>
 <body>
 
-    <header>
-        <div class="header-content">
-            <h1>Bujjamma's Journey</h1>
-            <div class="progress-wrapper">
-                <div class="progress-container">
-                    <div id="progress-bar"></div>
-                </div>
-                <span id="stats">0 / 0 Completed</span>
+<header>
+    <div class="header-content">
+        <h1>Bujjamma's Journey</h1>
+        <div class="progress-wrapper">
+            <div class="progress-container">
+                <div id="progress-bar"></div>
             </div>
-            <button class="reset-btn" onclick="clearAll()">Reset Progress</button>
+            <div class="stats-row">
+                <span id="stats">0 / 0 Completed</span>
+                <span id="overall-percent" class="percent-badge">0% Total</span>
+            </div>
         </div>
-    </header>
+        <button class="reset-btn" onclick="clearAll()">Reset Progress</button>
+    </div>
+</header>
 
     <main class="main-container" id="subjects-grid">
         </main>
