@@ -17,6 +17,7 @@ body {
     line-height: 1.6;
 }
 
+/* --- HEADER SECTION --- */
 header {
     position: sticky;
     top: 0;
@@ -28,12 +29,11 @@ header {
 }
 
 .header-content {
-    max-width: 800px;
+    max-width: 500px; /* Constrained for better mobile readability */
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 8px;
+    gap: 10px;
 }
 
 h1 {
@@ -41,6 +41,7 @@ h1 {
     margin: 0;
     color: var(--accent-red);
     font-size: 1.8rem;
+    text-align: center;
 }
 
 .progress-container {
@@ -48,7 +49,6 @@ h1 {
     height: 12px;
     border-radius: 10px;
     overflow: hidden;
-    margin-bottom: 5px;
 }
 
 #progress-bar {
@@ -58,15 +58,21 @@ h1 {
     transition: width 0.8s ease-in-out;
 }
 
+/* FIXED: Gap between chapters and percentage */
 .stats-row {
     display: flex;
-    justify-content: space-between;
-    font-size: 0.85rem;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* This creates the space between the two numbers */
+    font-size: 0.9rem;
     font-weight: 600;
 }
 
-.percent-badge { color: var(--accent-red); }
+.percent-badge { 
+    color: var(--accent-red); 
+}
 
+/* --- MAIN CONTENT --- */
 .main-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -138,43 +144,49 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
-/* Memory Section - Mobile Optimized */
+/* --- MEMORY SECTION --- */
 .about-section {
     padding: 40px 15px;
     display: flex;
     justify-content: center;
-    background: #fff;
-    border-top: 1px solid #ffeef2;
+    background: transparent;
     margin-top: 20px;
 }
 
 .memory-card {
     background: white;
-    padding: 15px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(255, 133, 162, 0.15);
-    max-width: 400px;
+    padding: 20px;
+    border-radius: 25px;
+    box-shadow: 0 15px 35px rgba(255, 133, 162, 0.2);
+    max-width: 450px;
     width: 100%;
     text-align: center;
     border: 1px solid var(--primary-pink);
     box-sizing: border-box;
 }
 
+/* FIXED: Photo aspect ratio and cropping */
 .memory-photo {
     width: 100%;
-    max-height: 350px; /* Limits height on mobile */
+    height: auto; /* Allows the height to scale naturally with the photo */
+    max-height: 550px; /* Increased to accommodate vertical selfies without cutting heads */
     object-fit: cover;
-    border-radius: 12px;
-    margin-bottom: 15px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    display: block;
 }
 
-.signature { font-weight: 600; color: var(--primary-pink); margin-top: 15px; }
+.signature { 
+    font-weight: 600; 
+    color: var(--primary-pink); 
+    margin-top: 15px; 
+}
 
-/* Popups */
+/* --- POPUPS & UI --- */
 #love-note-box {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -194,16 +206,25 @@ input[type="checkbox"] {
 
 .reset-btn {
     background: transparent;
-    border: 1px solid #eee;
-    padding: 4px 12px;
+    border: 1px solid #ddd;
+    padding: 6px 15px;
     border-radius: 20px;
     cursor: pointer;
     font-size: 0.75rem;
-    color: #bbb;
+    color: #999;
+    transition: all 0.3s ease;
 }
 
+.reset-btn:hover {
+    background: #fdf2f4;
+    color: var(--accent-red);
+    border-color: var(--primary-pink);
+}
+
+/* --- RESPONSIVE ADJUSTMENTS --- */
 @media (max-width: 600px) {
     h1 { font-size: 1.5rem; }
     .main-container { padding: 50px 10px; }
     h2 { font-size: 1.2rem; }
+    .memory-card { padding: 15px; }
 }
