@@ -1,7 +1,3 @@
-/**
- * Bujjamma's Study Tracker - Complete Logic
- */
-
 const subjects = {
     "Biology": ["Living World", "Biological Classification", "Plant Kingdom", "Animal Kingdom", "Morphology of Plants", "Anatomy of Flowering Plants", "Structural Organisation", "Cell Unit of Life", "Biomolecules", "Cell Cycle", "Photosynthesis", "Respiration", "Plant Growth and Development", "Breathing", "Body Fluids", "Excretion", "Locomotion", "Neural Control", "Chemical Coordination", "Sexual Reproduction in Flowering Plants", "Human Reproduction", "Reproductive Health", "Principles of Inheritance", "Molecular Basis", "Evolution", "Human Health and Diseases", "Microbes in Human Welfare", "Biotechnology Principles", "Biotechnology Applications", "Organisms and Populations", "Ecosystem", "Biodiversity"],
     "Chemistry": ["Some Basic Concepts", "Structure of Atom", "Classification of Elements", "Chemical Bonding", "Thermodynamics", "Equilibrium", "Redox Reactions", "P Block 13-14", "Organic Chemistry", "Hydrocarbons", "Solutions", "Electrochemistry", "Chemical Kinetics", "P Block 15-18", "D and F Blocks", "Coordination Compounds", "Haloalkanes and Haloarenes", "Alcohols, Phenols, and Ethers", "Aldehydes, Ketones, and Carboxylic Acids", "Amines", "Biomolecules"],
@@ -92,13 +88,12 @@ const quotes = [
     "I love you to the moon and back, Bujjamma."
 ];
 
-// List to track unused quotes
+// Tracking unique quotes
 let availableQuotes = JSON.parse(localStorage.getItem('unused_quotes')) || [...quotes];
 
 function init() {
     const grid = document.getElementById('subjects-grid');
     let html = '';
-
     for (const [subject, lessons] of Object.entries(subjects)) {
         html += `
             <div class="subject-card">
@@ -117,18 +112,14 @@ function init() {
                         `;
                     }).join('')}
                 </div>
-            </div>
-        `;
+            </div>`;
     }
     grid.innerHTML = html;
     loadProgress();
 }
 
 function toggleLesson(id) {
-    const isChecked = document.getElementById(id).checked;
-    if (isChecked) {
-        showNote();
-    }
+    if (document.getElementById(id).checked) showNote();
     saveProgress();
     updateProgressUI();
 }
@@ -136,74 +127,48 @@ function toggleLesson(id) {
 function showNote() {
     const box = document.getElementById('love-note-box');
     const text = document.getElementById('note-text');
-
-    // Reset if all quotes have been used
-    if (availableQuotes.length === 0) {
-        availableQuotes = [...quotes];
-    }
-
+    if (availableQuotes.length === 0) availableQuotes = [...quotes];
     const randomIndex = Math.floor(Math.random() * availableQuotes.length);
     const quote = availableQuotes.splice(randomIndex, 1)[0];
-
-    // Save the remaining unused quotes to localStorage
     localStorage.setItem('unused_quotes', JSON.stringify(availableQuotes));
-
     text.innerText = quote;
     box.classList.remove('hidden');
 }
 
-function hideNote() {
-    document.getElementById('love-note-box').classList.add('hidden');
-}
+function hideNote() { document.getElementById('love-note-box').classList.add('hidden'); }
 
 function saveProgress() {
     const status = {};
-    document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-        status[cb.id] = cb.checked;
-    });
+    document.querySelectorAll('input[type="checkbox"]').forEach(cb => status[cb.id] = cb.checked);
     localStorage.setItem('bujjamma_study_data', JSON.stringify(status));
 }
 
 function loadProgress() {
     const saved = JSON.parse(localStorage.getItem('bujjamma_study_data')) || {};
-    Object.keys(saved).forEach(id => {
-        const cb = document.getElementById(id);
-        if (cb) cb.checked = saved[id];
-    });
+    Object.keys(saved).forEach(id => { if (document.getElementById(id)) document.getElementById(id).checked = saved[id]; });
     updateProgressUI();
 }
 
 function updateProgressUI() {
-    // Subject wise percentage logic
     for (const subject in subjects) {
         const subjectCBs = document.querySelectorAll(`.cb-${subject}`);
         const checked = Array.from(subjectCBs).filter(c => c.checked).length;
         const percent = Math.round((checked / subjectCBs.length) * 100);
-        
         const badge = document.getElementById(`percent-${subject}`);
         if(badge) badge.innerText = `${percent}% Done`;
     }
-
-    // Overall percentage logic
     const all = document.querySelectorAll('input[type="checkbox"]');
     const totalChecked = Array.from(all).filter(c => c.checked).length;
     const totalPercent = Math.round((totalChecked / all.length) * 100);
-    
-    const progressBar = document.getElementById('progress-bar');
-    const statsText = document.getElementById('stats');
-    const overallPercentText = document.getElementById('overall-percent');
-
-    if(progressBar) progressBar.style.width = totalPercent + '%';
-    if(statsText) statsText.innerText = `${totalChecked} / ${all.length} Chapters`;
-    if(overallPercentText) overallPercentText.innerText = `${totalPercent}% Total`;
+    document.getElementById('progress-bar').style.width = totalPercent + '%';
+    document.getElementById('stats').innerText = `${totalChecked} / ${all.length} Chapters`;
+    document.getElementById('overall-percent').innerText = `${totalPercent}% Total`;
 }
 
 function clearAll() {
-    if(confirm("Reset all progress, Bujjamma? This will also reset your unique quote list!")) {
-        localStorage.removeItem('bujjamma_study_data');
-        localStorage.removeItem('unused_quotes');
+    if(confirm("Reset all progress, Bujjamma?")) {
+        localStorage.clear();
         location.reload();
     }
 }
-
 document.addEventListener('DOMContentLoaded', init);
