@@ -3,29 +3,29 @@
 :root {
     --primary-pink: #ff85a2;
     --accent-red: #ff4d6d;
-    --glass: rgba(255, 255, 255, 0.85);
+    --soft-pink: #fff5f7;
     --text-main: #2d3436;
+    --card-bg: #ffffff;
 }
 
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
-    /* IMPORTANT: Check your image filename below matches GitHub exactly */
-    background: url('background.jpg') no-repeat center center fixed;
-    background-size: cover;
+    /* Soft aesthetic gradient instead of an image */
+    background: linear-gradient(135deg, var(--soft-pink) 0%, #ffffff 100%);
+    background-attachment: fixed;
     color: var(--text-main);
     line-height: 1.6;
 }
 
-/* Fixed Header */
 header {
     position: sticky;
     top: 0;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
     z-index: 1000;
     padding: 15px 20px;
-    box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 20px rgba(255, 133, 162, 0.1);
 }
 
 .header-content {
@@ -49,19 +49,18 @@ h1 {
 }
 
 .progress-container {
-    background: #eee;
+    background: #f0f0f0;
     height: 12px;
     border-radius: 10px;
     overflow: hidden;
     margin-bottom: 5px;
-    border: 1px solid rgba(0,0,0,0.05);
 }
 
 #progress-bar {
     width: 0%;
     height: 100%;
     background: linear-gradient(90deg, var(--primary-pink), var(--accent-red));
-    transition: width 0.8s ease-in-out;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .stats-row {
@@ -71,11 +70,8 @@ h1 {
     font-weight: 600;
 }
 
-.percent-badge {
-    color: var(--accent-red);
-}
+.percent-badge { color: var(--accent-red); }
 
-/* Subject Grid */
 .main-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -86,19 +82,20 @@ h1 {
 }
 
 .subject-card {
-    background: var(--glass);
-    backdrop-filter: blur(10px);
+    background: var(--card-bg);
     border-radius: 25px;
     padding: 20px;
-    border: 1px solid rgba(255,255,255,0.5);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    position: relative; /* Keep everything contained */
+    border: 1px solid #ffeef2;
+    box-shadow: 0 10px 30px rgba(255, 133, 162, 0.1);
+    position: relative;
+    transition: transform 0.3s ease;
 }
 
-/* Fixed Subject Titles */
+.subject-card:hover { transform: translateY(-5px); }
+
 .subject-header {
     text-align: center;
-    margin-top: -45px; /* Floats the title above the card */
+    margin-top: -45px;
     margin-bottom: 15px;
 }
 
@@ -111,7 +108,7 @@ h2 {
     display: inline-block;
     font-size: 1.4rem;
     margin: 0;
-    box-shadow: 0 5px 15px rgba(255, 133, 162, 0.4);
+    box-shadow: 0 5px 15px rgba(255, 133, 162, 0.3);
 }
 
 .subject-percent {
@@ -128,22 +125,20 @@ h2 {
     border: 1px solid var(--primary-pink);
 }
 
-/* Lesson Items */
 .lesson-list {
     max-height: 350px;
     overflow-y: auto;
     padding-right: 5px;
 }
 
-/* Custom Scrollbar */
 .lesson-list::-webkit-scrollbar { width: 4px; }
 .lesson-list::-webkit-scrollbar-thumb { background: var(--primary-pink); border-radius: 10px; }
 
 .lesson-item {
     display: flex;
     align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid rgba(0,0,0,0.03);
+    padding: 12px 10px;
+    border-bottom: 1px solid #fff5f7;
 }
 
 input[type="checkbox"] {
@@ -154,16 +149,44 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
-label {
-    cursor: pointer;
-    font-size: 0.95rem;
+label { cursor: pointer; font-size: 0.95rem; }
+
+/* Memory Section */
+.about-section {
+    padding: 80px 20px;
+    display: flex;
+    justify-content: center;
+    background: #fff;
+    border-top: 1px solid #ffeef2;
 }
 
-/* Love Note Box */
+.memory-card {
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(255, 133, 162, 0.15);
+    max-width: 450px;
+    text-align: center;
+    border: 1px solid var(--primary-pink);
+}
+
+.memory-photo {
+    width: 100%;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.memory-text p { font-style: italic; color: #555; }
+
+.signature { font-weight: 600; color: var(--primary-pink); margin-top: 15px; }
+
+/* Popups */
 #love-note-box {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(255, 133, 162, 0.2);
+    backdrop-filter: blur(4px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -172,11 +195,12 @@ label {
 
 .note-content {
     background: white;
-    padding: 30px;
-    border-radius: 20px;
+    padding: 40px 30px;
+    border-radius: 25px;
     text-align: center;
-    max-width: 350px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    max-width: 380px;
+    border: 2px solid var(--primary-pink);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
 }
 
 .hidden { display: none !important; }
@@ -184,12 +208,10 @@ label {
 .reset-btn {
     margin-top: 5px;
     background: transparent;
-    border: 1px solid #ddd;
-    padding: 4px 12px;
+    border: 1px solid #eee;
+    padding: 5px 15px;
     border-radius: 20px;
     cursor: pointer;
     font-size: 0.75rem;
-    color: #888;
+    color: #bbb;
 }
-
-.reset-btn:hover { background: #f5f5f5; color: var(--accent-red); }
