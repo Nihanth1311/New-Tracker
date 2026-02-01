@@ -88,7 +88,6 @@ const quotes = [
     "I love you to the moon and back, Bujjamma."
 ];
 
-// Tracking unique quotes
 let availableQuotes = JSON.parse(localStorage.getItem('unused_quotes')) || [...quotes];
 
 function init() {
